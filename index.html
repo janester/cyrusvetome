@@ -12,29 +12,44 @@
       font-family: 'Nobile';
     }
 
+    body {
+      background: black;
+    }
+
     .images {
       max-height: 500px;
       margin: 0 auto;
       text-align: center;
     }
 
-/*    .images img {
-      width: auto;
-      height: 100%;
-    }*/
-
     #veto-text h1{
       font-family: 'Bangers';
       color: red;
       font-size: 6em;
+    }
+
+    #make-suggestion {
+      font-style: italic;
+      font-weight: 100;
+      font-family: inherit;
+      color: white;
+    }
+
+    @media only screen and (max-width : 320px) {
+      #make-suggestion {
+        font-size: 1.25rem;
+      }
+
+      #veto-image {
+        max-height: 15rem;
+      }
     }
   </style>
 </head>
 <body>
   <section class='row'>
     <div class='small-12 columns'>
-      <h1 style='font-weight: bold;'>Cyrus Veto</h1>
-      <h4 style='font-style: italic;' class='subheader' id='make-suggestion'>Make a Suggestion To Cyrus:</h4>
+      <h1 id='make-suggestion'>Make a Suggestion to Cyrus:</h1>
     </div>
   </section>
   <section class='row images'>
@@ -49,10 +64,12 @@
   </section>
   <section class='row hide' id='veto-text'>
     <h1>VETO!</h1>
+    <a class='button radius expand' onclick='window.location.reload()'>Try Again</a>
   </section>
 </body>
 <script type="text/javascript">
   $(document).ready(function(){
+    window.scrollTo(0,0);
     var button = $('#suggestion-submit');
     var input = $('#suggestion');
     var vetoText = $('#veto-text');
@@ -68,6 +85,7 @@
         makeSuggestion.addClass('hide');
         vetoImage.removeClass('hide');
         vetoText.removeClass('hide');
+        window.scrollTo(0,0);
       }
     };
 
