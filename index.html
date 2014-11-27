@@ -1,18 +1,75 @@
 <html>
 <head>
   <title>Cyrus Veto Me</title>
+  <meta name="viewport" content="initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/css/normalize.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/css/foundation.min.css">
+  <style type="text/css">
+    h1, h4{
+      text-align: center;
+    }
+
+    .images {
+      max-height: 500px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .images img {
+      width: auto;
+      height: 100%;
+    }
+  </style>
 </head>
 <body>
   <section class='row'>
-    <h1 class='small-12'>Cyrus Veto</h1>
+    <div class='small-12 columns'>
+      <h1>Cyrus Veto</h1>
+      <h4 id='make-suggestion'>Make a Suggestion To Cyrus:</h4>
+    </div>
   </section>
-  <section class='row'>
-    <img src="cyrus.gif">
+  <section class='row images'>
+    <img class='' id='suggestion-image' src="suggestion_cyrus.png">
+  </section>
+  <section class='row images'>
+    <img class=' hide' id='veto-image' src="cyrusgif2.gif">
+  </section>
+  <section id='form' class='row'>
+    <input class='small-12 columns' autofocus type='text' name='suggestion' id='suggestion' placeholder='e.g. Chipotle?'>
+    <a class='button radius expand disabled' id='suggestion-submit'>Enter</a>
+  </section>
+  <section class='row hide' id='veto-text'>
+    <h1>VETO</h1>
   </section>
 </body>
 <script type="text/javascript">
+  $(document).ready(function(){
+    var button = $('#suggestion-submit');
+    var input = $('#suggestion');
+    var vetoText = $('#veto-text');
+    var form = $('#form');
+    var suggestionImage = $('#suggestion-image');
+    var vetoImage = $('#veto-image');
+    var makeSuggestion = $('#make-suggestion')
+
+    var submitSuggestion = function(){
+      if(!button.hasClass('disabled')){
+        form.addClass('hide');
+        suggestionImage.addClass('hide');
+        makeSuggestion.addClass('hide');
+        vetoImage.removeClass('hide');
+        vetoText.removeClass('hide');
+      }
+    };
+
+    var enableButton = function(e){
+      if(button.hasClass('disabled')) { button.removeClass('disabled'); }
+    };
+
+    button.on('click', submitSuggestion)
+    input.on('input', enableButton)
+  })
+
 </script>
 </html>
