@@ -46,55 +46,57 @@
     }
   </style>
 </head>
+
 <body>
-  <section class='row'>
+  <!-- Suggestion Page -->
+  <section class='row' id='suggestion-page'>
     <div class='small-12 columns'>
       <h1 id='make-suggestion'>Make a Suggestion to Cyrus:</h1>
     </div>
+    <section class='row images'>
+      <img class='' id='suggestion-image' src="suggestion_cyrus2.png">
+    </section>
+    <form id='form' class='row'>
+      <input class='small-12 columns' autofocus type='text' name='suggestion' id='suggestion' placeholder='e.g. Chipotle?'>
+      <input type='submit' class='button radius expand disabled' id='suggestion-submit' value='Enter'>
+    </form>
   </section>
-  <section class='row images'>
-    <img class='' id='suggestion-image' src="suggestion_cyrus2.png">
-  </section>
-  <section class='row images'>
-    <img class=' hide' id='veto-image' src="cyrusgif2.gif">
-  </section>
-  <section id='form' class='row'>
-    <input class='small-12 columns' autofocus type='text' name='suggestion' id='suggestion' placeholder='e.g. Chipotle?'>
-    <a class='button radius expand disabled' id='suggestion-submit'>Enter</a>
-  </section>
-  <section class='row hide' id='veto-text'>
-    <h1>VETO!</h1>
-    <a class='button radius expand' onclick='window.location.reload()'>Try Again</a>
+
+  <!-- Veto Page -->
+  <section class='row hide' id='veto-page'>
+    <section class='row images'>
+      <img id='veto-image' src="cyrusgif2.gif">
+    </section>
+    <section class='row' id='veto-text'>
+      <h1>VETO!</h1>
+      <a class='button radius expand' onclick='window.location.reload()'>Try Again</a>
+    </section>
   </section>
 </body>
+
 <script type="text/javascript">
   $(document).ready(function(){
     window.scrollTo(0,0);
     var button = $('#suggestion-submit');
     var input = $('#suggestion');
-    var vetoText = $('#veto-text');
     var form = $('#form');
-    var suggestionImage = $('#suggestion-image');
-    var vetoImage = $('#veto-image');
-    var makeSuggestion = $('#make-suggestion')
-
-    var submitSuggestion = function(){
-      if(!button.hasClass('disabled')){
-        form.addClass('hide');
-        suggestionImage.addClass('hide');
-        makeSuggestion.addClass('hide');
-        vetoImage.removeClass('hide');
-        vetoText.removeClass('hide');
-        window.scrollTo(0,0);
-      }
-    };
 
     var enableButton = function(e){
       if(button.hasClass('disabled')) { button.removeClass('disabled'); }
     };
 
-    button.on('click', submitSuggestion)
+    var submitSuggestion = function(){
+      if(!button.hasClass('disabled')){
+        $('#veto-page').removeClass('hide');
+        $('#suggestion-page').addClass('hide');
+        window.scrollTo(0,0);
+        input.blur()
+        return false;
+      }
+    }
+
     input.on('input', enableButton)
+    form.on('submit', submitSuggestion)
   })
 
 </script>
